@@ -1,6 +1,13 @@
 import numpy as np
 from math.legendre_polynomial import calculate_legendre_polynomial
 
+
+"""
+
+Solve the RTE with the single scattering approximation
+
+"""
+
 def scatter_up(mu, mu0, azr, tau0, xk)
     """
 

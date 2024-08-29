@@ -5,7 +5,7 @@ import numpy as np
 
 def gauss_node_calculate(x1, x2, n):
     const_boundary = 3.0e-14
-    x, w = np.zeros(n)
+    x, w = np.zeros(n), np.zeros(n)
     m = int((n + 1) / 2)
     yxm, yxl = (x2 + x1) / 2, (x2 - x1) / 2
 
