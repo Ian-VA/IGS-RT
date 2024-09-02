@@ -48,6 +48,8 @@ def gauss_seidel_iterations(m, mu0, srfa, nit, ng1, nlr, dtau, xk):
             p[ig] = np.dot(xk, pk[ig, :]*pk0)
 
 
+
+
     """
 
     Solution to the Radiative Transfer equation in the single scattering approximation at positive Gauss nodes and all layer boundaries (so, the first dimension)
@@ -79,13 +81,14 @@ def gauss_seidel_iterations(m, mu0, srfa, nit, ng1, nlr, dtau, xk):
 
     I1up = p[0:ng1]*mu0/(mu0 + mup) * (1.0 - np.exp(-dtau/mup -dtau/mu0)) # single scattering from one layer
 
+    print(I1up.shape)
+
     Iup = np.zeros_like(I1up) # single scattering at all boundaries
 
     if m == 0 and srfa > float_compare_tiny:
         Iup[nb-1, :] = 2.0 * srfa * mu0 * np.exp(-tau0/mu0)
         Iup[nb-2, :] = Iup[nb-1, :]*np.exp(-dtau/mup) + \
                             I1up*np.exp(-tau[nb-2]/mu0)
-
     else:
         Iup[nb-2, :] = I1up*np.exp(-tau[nb-2]/mu0)
 
@@ -98,14 +101,11 @@ def gauss_seidel_iterations(m, mu0, srfa, nit, ng1, nlr, dtau, xk):
         for jg in range(ng2):
             wpij[ig, jg] = wg[jg]*np.dot(xk, pk[ig, :]*pk[jg, :])
 
-
     T = wpij[0:ng1, 0:ng1].copy()
     R = wpij[0:ng1, ng1:ng2].copy()
 
-
     I_up = np.copy(Iup) # initialize iterations
     I_dn = np.copy(Idn) # with single scattering
-
 
     """
 
@@ -147,9 +147,4 @@ def gauss_seidel_iterations(m, mu0, srfa, nit, ng1, nlr, dtau, xk):
                     (1.0 - np.exp(-dtau/mup))*J
 
     return mug, wg, Iup[:, :], Idn[:, :]
-
-gauss_seidel_iterations(0, 0.5, 0.5, 0.11, 1, 4, 4, [[0], [5], [5], [3]])
-
-
-
 
