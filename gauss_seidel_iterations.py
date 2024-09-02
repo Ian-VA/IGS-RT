@@ -42,6 +42,7 @@ def gauss_seidel_iterations(m, mu0, srfa, nit, ng1, nlr, dtau, xk):
             p[ig] = np.dot(xk, pk[ig, :]*pk0)
 
     else:
+        print(nk-1)
         pk0 = calculate_associated_legendre_polynomial(m, mu0, nk-1)
         for ig in range(ng2):
             pk[ig, :] = calculate_associated_legendre_polynomial(m, mug[ig], nk-1)
@@ -83,7 +84,7 @@ def gauss_seidel_iterations(m, mu0, srfa, nit, ng1, nlr, dtau, xk):
 
     print(I1up.shape)
 
-    Iup = np.zeros_like(I1up) # single scattering at all boundaries
+    Iup = np.zeros_like(Idn) # single scattering at all boundaries
 
     if m == 0 and srfa > float_compare_tiny:
         Iup[nb-1, :] = 2.0 * srfa * mu0 * np.exp(-tau0/mu0)
@@ -114,10 +115,10 @@ def gauss_seidel_iterations(m, mu0, srfa, nit, ng1, nlr, dtau, xk):
     """
 
     for itr in range(nit):
-        Iup05 = 1/2 * (I_up[0, :] + I_up[1, :])
-        Idn05 = 1/2 * (I_dn[0, :] + I_dn[1, :]) # Top of atmospher eboundary: I_dn[0, :] = 0 
+        Iup05 = 0.5 * (I_up[0, :] + I_up[1, :])
+        Idn05 = 0.5 * (I_dn[0, :] + I_dn[1, :]) # Top of atmospher eboundary: I_dn[0, :] = 0 
         J = np.dot(R, Iup05) + np.dot(T, Idn05)
-        I_dn[1, :] = Idn + (1.0 - np.exp(-dtau/mup)) * J
+        I_dn[1, :] = I1dn + (1.0 - np.exp(-dtau/mup)) * J
 
         for ib in range(2, nb):
             Iup05 = 0.5*(I_up[ib-1, :] + I_up[ib, :])

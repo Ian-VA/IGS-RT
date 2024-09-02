@@ -29,7 +29,7 @@ def calculate_legendre_polynomial(x, kmax):
 
         return pk
 
-def calculate_associated_legendre_polynomial(x, kmax, m):
+def calculate_associated_legendre_polynomial(m, x, kmax):
     """
 
     Calculates an associated Legendre polynomial P(x) given scalar x up to order kmax and Fourier degree m

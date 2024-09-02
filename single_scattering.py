@@ -1,6 +1,5 @@
 import numpy as np
-from math.legendre_polynomial import calculate_legendre_polynomial
-
+from utility_functions.legendre_polynomial import calculate_legendre_polynomial
 
 """
 
@@ -8,7 +7,7 @@ Solve the RTE with the single scattering approximation
 
 """
 
-def scatter_up(mu, mu0, azr, tau0, xk)
+def scatter_up(mu, mu0, azr, tau0, xk):
     """
 
     Calculates the scattering of upward-facing radiation, returning an intensity after scattering
@@ -39,7 +38,7 @@ def scatter_up(mu, mu0, azr, tau0, xk)
 
     return I1up
 
-def scatter_down(mu, mu0, azr, tau0, xk)
+def scatter_down(mu, mu0, azr, tau0, xk):
     """
 
     Calculates the scattering of downward-facing radiation, returning the intensity after scattering
